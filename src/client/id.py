@@ -1,4 +1,4 @@
 import client.exec as cexec
 def id():
-    id = cexec.execute_arbitrary_command("hostname").decode()
+    id = cexec.execute_arbitrary_command("hostname").decode().strip()
     return id
