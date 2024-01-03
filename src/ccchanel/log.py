@@ -1,5 +1,4 @@
-import json
-import file
+import ccchanel.file as file
 def log_append(dbx, path, entry):
     log = log_read(dbx, path)
     log += [entry]
