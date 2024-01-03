@@ -37,6 +37,6 @@ if __name__ == "__main__":
             cmd = cmd['command']
             cmd_id = cmd['timestamp']
             exec_out = cexec.execute_command(cmd['kind'], cmd['args'])
-            cclog.log_append(dbx, '/' + id, cpayload.done_create(cmd_id))
+            cclog.log_append(dbx, '/' + id, cpayload.done_create(cmd_id, exec_out))
         time.sleep(sleep_time)
         cclog.log_append(dbx, '/' + id, cpayload.ping_create())
