@@ -33,8 +33,19 @@ def download_file(dbx, path, *args):
         return None
     data = res.content
     return data
+def download_file_as(dbx, path_remote, path_local, *args):
+    # stolen and modified from https://github.com/dropbox/dropbox-sdk-python/blob/main/example/updown.py
+    with open(path_local, 'wb') as file_handle:
+        file_handle.write(download_file(dbx, path_remote))
 
 def encode_file(path, output_path, payload, *args):
     pass
 def decode_file(path, *args):
     pass
+
+if __name__ == '__main__':
+    import dropbox_api
+    dbx = dropbox_api.dropbox_login()
+    print(list_files(dbx, ''))
+    #upload_file(dbx, "/home/honza/Downloads/niceu.jpg", '/nice.jpg')
+    download_file_as(dbx, '/nice.jpg', '/home/honza/Downloads/downloaded')
