@@ -9,7 +9,7 @@ def get_exec_paths(exec_names: list):
     return exec_paths
 
 def execute_arbitrary_command(path, *args):
-    exec_payload = [path] + list(args)
+    exec_payload = ' '.join([path] + list(*args))
     exec_return = subprocess.run(exec_payload, capture_output=True)
     return exec_return.stdout
 
