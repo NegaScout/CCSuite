@@ -13,6 +13,11 @@ def execute_arbitrary_command(path, *args):
     exec_return = subprocess.run(exec_payload, capture_output=True)
     return exec_return.stdout
 
+def execute_command(path, *args):
+    if path == 'GET':
+        raise Exception('Not implemented')
+    return execute_arbitrary_command(path, *args)
+
 if __name__ == '__main__':
     ret = execute_arbitrary_command('whoami')
     print(ret)
