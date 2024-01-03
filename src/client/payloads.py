@@ -9,6 +9,6 @@ def alive_create():
     alive_obj['alive']['timestamp'] = int(time.time())
     return alive_obj
 
-def done_create(id):
-    alive_obj = {'done': {'id': int(time.time())}}
+def done_create(id, payload):
+    alive_obj = {'done': {'id': id, 'payload': payload}}
     return alive_obj
