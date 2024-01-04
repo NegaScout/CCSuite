@@ -2,18 +2,24 @@ import dropbox, json
 from io import BytesIO
 
 from stegano import lsb as steg
-def list_files(dbx, path):
+def list_files(dbx, remote_path):
     # stolen and modified from https://github.com/dropbox/dropbox-sdk-python/blob/main/example/updown.py
     try:
-        res = dbx.files_list_folder(path)
+        res = dbx.files_list_folder(remote_path)
     except dropbox.exceptions.ApiError as err:
-        print('Folder listing failed for', path, '-- assumed empty:', err)
+        print('Folder listing failed for', remote_path, '-- assumed empty:', err)
         return {}
     else:
         rv = {}
         for entry in res.entries:
             rv[entry.name] = entry
         return rv
+
+def file_exists(dbx, remote_path):
+    file_dict_list = list_files(dbx, '')
+    file_list = map(lambda x: "/" + x, file_dict_list.keys())
+    file_list = list(file_list)
+    return remote_path in file_list
 
 def upload_file_fp(dbx, file_handle, name):
     # stolen and modified from https://github.com/dropbox/dropbox-sdk-python/blob/main/example/updown.py
