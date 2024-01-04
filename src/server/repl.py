@@ -1,3 +1,4 @@
+
 def parse_command():
     input_line = input('> ')
     command_parts = input_line.split()
@@ -11,7 +12,7 @@ def create_repl_command(kind, command_list):
     cmd_list_len = len(command_list)
     if kind not in ['local', 'remote']:
         return None
-    if kind == 'local' and cmd_list_len < 2:
+    if kind == 'local' and cmd_list_len < 1:
         return None
     elif kind == 'remote' and cmd_list_len < 2:
         return None
