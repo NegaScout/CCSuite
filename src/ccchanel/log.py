@@ -4,12 +4,14 @@ def log_append(dbx, path, entry):
     log += [entry]
     payload = file.encode_to_bytes(log)
     file.upload_file_fp(dbx, payload, path)
+    print(f'LOG: appended {entry} to {path}')
 def log_read(dbx, path):
     bytes = file.download_file(dbx, path)
     return file.decode_from_bytes(bytes)
 def log_init(dbx, path):
     payload = file.encode_to_bytes([])
     file.upload_file_fp(dbx, payload, path)
+    print(f'LOG: init {path}')
 
 if __name__ == '__main__':
     import dropbox_api
