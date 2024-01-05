@@ -45,7 +45,7 @@ def handle_local_command(dbx, command, *args):
 if __name__ == "__main__":
     dbx = cc_api.dropbox_login()
     path = "/Prometheus"
-    print(sutil.print_help())
+    print(sutil.help_string())
     while True:
         parsed_cmd = srepl.parse_command()
         if parsed_cmd is not None:
@@ -56,5 +56,5 @@ if __name__ == "__main__":
                 cmd = parsed_cmd['local']
                 handle_local_command(dbx, cmd['command'], *cmd['args'])
         else:
-            print(sutil.print_help())
+            print(sutil.help_string())
         time.sleep(1) # Limit 1 cmd per second, so I dont have to deal with ids xD (timestamp is also id, cuz its easy)

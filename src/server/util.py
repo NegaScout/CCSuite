@@ -21,7 +21,7 @@ def get_done_with_id(log, id):
             return log_entry['done']
     return None
 
-def print_help():
+def help_string():
     help_string = ""
     help_string += "Server has two command modes, 'local' and 'remote' which have to be prepended with each entry\n"
     help_string += "Commands for local:\n"
