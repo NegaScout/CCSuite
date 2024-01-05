@@ -40,13 +40,18 @@ Client communication loop:
 # Instalation:
 `pip install -r requirements.txt`
 
+you may have to install `ffmpeg libsm6 libxext6` for cv2 to work.
+
+Tested on **Debian 12**
+
+
 # Usage:
 Just execute both src/client.py and src/server.py with `DROPBOX_TOKEN=<token>` environment variable
 and issue commands to the server REPL
 
 # Issues I know of:
 - Hostname is not a unique identifier, multiple bots could connect to the same C&C chanel
-- File uploads are not hidden. It is because the files could be arbitrary large and an image
+- File uploads are not hidden (stenoed). It is because the files could be arbitrary large and an image
 has limited capacity of string length which can hide
 - The log length is finite, for indefinite function, I would need to add 
   - `commit` msg type for server,
