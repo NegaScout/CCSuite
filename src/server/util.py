@@ -28,6 +28,7 @@ def help_string():
     help_string += "\tget <target (dropbox path, has to begin with /)> # downloads the file from dropbox to /tmp\n"
     help_string += "\tcat <target (dropbox path, has to begin with /)> # cats log contained within the file\n"
     help_string += "\tonline # prints list of online bots\n"
+    help_string += "\tresult <task_id> # prints the payload, which the client appended to the log after finishing the task\n"
     help_string += "Commands for remote:\n"
     help_string += "\tupload <bot_local_path (unix path)> # uploads file to dropbox as is\n"
     help_string += "\t<remote_path or command> <args*> # executes arbitrary command\n"
