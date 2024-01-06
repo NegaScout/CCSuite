@@ -30,7 +30,7 @@ Client communication loop:
 - _The controller should check if the bots are alive periodically_
   - The bot appends keepalive messages to log. The server can check online hosts with `local online` command
 -  `w` command, **via** `remote <target_host_id> w`
--  `ls` command, **via** `remote <target_host_id> ls \*args`
+-  `ls` command, **via** `remote <target_host_id> ls *args`
 -  `id` command, **via** `remote <target_host_id> id`
 -  _Copy a file from the bot to the controller_ **via**
    -  `remote <target_host_id> upload <bot_local_path>`
