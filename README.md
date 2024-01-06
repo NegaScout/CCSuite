@@ -36,6 +36,7 @@ Client communication loop:
    -  `remote <target_host_id> upload <bot_local_path>`
    -  `local get <dropbox_path>`
 -  _Execute a binary inside the bot given the name of the binary_ **via** `remote <target_host_id> <bot_local_path> *args`
+- To fetch a result of task, use `local <target_host_id> result <id>`
 
 # Instalation:
 `pip install -r requirements.txt`
