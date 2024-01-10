@@ -1,17 +1,22 @@
 import time
 
-import ccchanel.log as cclog
-import ccchanel.file as ccfile
-import ccchanel.dropbox_api as cc_api
-import server.cmd as scmd
-import server.repl as srepl
-import server.util as sutil
+from .ccchanel import log as cclog
+from .ccchanel import file as ccfile
+from .ccchanel import dropbox_api as cc_api
+
+from .server import cmd as scmd
+from .server import repl as srepl
+from .server import util as sutil
+
+
 def check_pong(dbx, path):
     log = cclog.log_read(dbx, path)
+
 
 def dispatch_command(dbx, path, command, *args):
     payload = scmd.command_create(command, *args)
     cclog.log_append(dbx, path, payload)
+
 
 def handle_local_command(dbx, command, *args):
     if command == 'get':
@@ -42,7 +47,8 @@ def handle_local_command(dbx, command, *args):
         else:
             print(f"SERVER: no log for {args[0]}")
 
-if __name__ == "__main__":
+
+def main():
     dbx = cc_api.dropbox_login()
     path = "/Prometheus"
     print(sutil.help_string())
@@ -57,4 +63,8 @@ if __name__ == "__main__":
                 handle_local_command(dbx, cmd['command'], *cmd['args'])
         else:
             print(sutil.help_string())
-        time.sleep(1) # Limit 1 cmd per second, so I dont have to deal with ids xD (timestamp is also id, cuz its easy)
+        time.sleep(1)  # Limit 1 cmd per second, so I dont have to deal with ids xD (timestamp is also id, cuz its easy)
+
+
+if __name__ == "__main__":
+    main()

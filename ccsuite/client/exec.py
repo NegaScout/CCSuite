@@ -1,4 +1,6 @@
-import subprocess, re
+import subprocess
+
+
 def get_exec_paths(exec_names: list):
     pass
     # so far did not need absolute paths

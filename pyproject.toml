@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "ccsuite"
+version = "0.0.2"
+description = "desc"
+authors = ["NegaScout <jenik.wagner@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+dropbox = "^11.36.2"
+stegano = "^0.11.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+ccclient = "ccsuite.ccsuite_client:main"
+ccserver = "ccsuite.ccsuite_server:main"
