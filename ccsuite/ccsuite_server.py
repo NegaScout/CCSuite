@@ -50,7 +50,6 @@ def handle_local_command(dbx, command, *args):
 
 def main():
     dbx = cc_api.dropbox_login()
-    path = "/Prometheus"
     print(sutil.help_string())
     while True:
         parsed_cmd = srepl.parse_command()
