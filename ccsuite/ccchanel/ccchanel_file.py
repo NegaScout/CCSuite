@@ -4,6 +4,9 @@ from os import listdir, path
 
 class CCChanelFile(CCChanelBase):
     def write(self, data: bytes, *args, **kwargs) -> None:
+        if len(args) == 0:
+            raise TypeError("number of *args has to be at least one")
+
         f_path, = args
         with open(f_path, "wb") as fp:
             fp.write(data)
