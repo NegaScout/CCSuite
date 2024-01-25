@@ -1,16 +1,16 @@
 import os.path
 import time
 
-from ..steno import steno_base
-from ..ccchanel import ccchanel_base
 from ..ccchanel import log as cclog
-from ..client import payloads as cpayload
+from ..ccchanel.ccchanel_base import CCChanelBase
+from ..ccchanel.log import log_append as cclog_append
 from ..client import exec as cexec
-from ..ccchanel.log import cclog_append
+from ..client import payloads as cpayload
+from ..steno.steno_base import CCStenoBase
 
 
 class CCClient(object):
-    def __init__(self, ccchanel: ccchanel_base, steno_: steno_base):
+    def __init__(self, ccchanel: CCChanelBase, steno_: CCStenoBase):
         self.ccchanel = ccchanel
         self.steno_base = steno_
         self.id = ''
