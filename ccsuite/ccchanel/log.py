@@ -1,5 +1,5 @@
-from .ccchanel_base import CCChanelBase
-from .ccchanel_file import CCChanelFile
+from ccchanel_base import CCChanelBase
+from ccchanel_file import CCChanelFile
 from ..steno.steno_base import CCStenoBase
 
 

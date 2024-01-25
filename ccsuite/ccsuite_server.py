@@ -4,7 +4,7 @@ from ccsuite.steno.steno_base import CCStenoBase
 
 
 def main():
-    client = CCServer(CCChanelFile, CCStenoBase)
+    client = CCServer(CCChanelFile(), CCStenoBase())
     client.run()
 
 

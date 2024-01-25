@@ -18,3 +18,13 @@ class CCChanelFile(CCChanelBase):
 
     def exists(self, identifier: str, *args, **kwargs) -> bool:
         return path.basename(identifier) in self.list(path.dirname(identifier), *args, **kwargs)
+
+
+if __name__ == '__main__':
+    file = '/tmp/ccchanel.txt'
+    obj = b'sada'
+    base = CCChanelFile()
+    print(base.write(obj, file))
+    print(base.read(file))
+    print(base.list('/tmp'))
+    print(base.exists(file))
