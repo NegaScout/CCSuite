@@ -8,6 +8,7 @@ class CCStenoBase(object):
     def decode(self, payload: bytes, *args, **kwargs) -> object:
         return loads(payload.decode())
 
+
 if __name__ == '__main__':
     obj = ['hi']
     base = CCStenoBase()
