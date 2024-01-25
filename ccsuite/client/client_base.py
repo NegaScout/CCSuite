@@ -1,20 +1,20 @@
 import os.path
 import time
 
-from ..ccchanel import log as cclog
-from ..ccchanel.ccchanel_base import CCChanelBase
-from ..ccchanel.log import log_append as cclog_append
-from ..client import exec as cexec
-from ..client import payloads as cpayload
-from ..steno.steno_base import CCStenoBase
+from ccchanel import log as cclog
+from ccchanel.ccchanel_base import CCChanelBase
+from ccchanel.log import log_append as cclog_append
+from client import exec as cexec
+from client import payloads as cpayload
+from steno.steno_base import CCStenoBase
 
 
 class CCClient(object):
     def __init__(self, ccchanel: CCChanelBase, steno_: CCStenoBase):
         self.ccchanel = ccchanel
         self.steno_base = steno_
-        self.id = ''
-        self.log_root = '/tmp'
+        self.id = 'client'
+        self.log_root = '/tmp/ccsuite'
         self.own_log = os.path.join(self.log_root, self.id)
 
     def is_registered(self):

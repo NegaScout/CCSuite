@@ -1,5 +1,5 @@
 from ccsuite.ccchanel.ccchanel_file import CCChanelFile
-from ccsuite.server.server import CCServer
+from ccsuite.server.server_base import CCServer
 from ccsuite.steno.steno_base import CCStenoBase
 
 

