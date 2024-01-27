@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import mock_open, patch
 from ccsuite.ccchanel.ccchanel_file import CCChanelFile
 
+
 # todo inherit from common CCChanel class to omit setUp
 class TestCCChanelWrite(unittest.TestCase):
     def setUp(self):
