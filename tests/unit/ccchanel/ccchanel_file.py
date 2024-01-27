@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import mock_open, patch
 from ccsuite.ccchanel.ccchanel_file import CCChanelFile
 
-
+# todo inherit from common CCChanel class to omit setUp
 class TestCCChanelWrite(unittest.TestCase):
     def setUp(self):
         self.chanel = CCChanelFile()
@@ -19,11 +19,37 @@ class TestCCChanelWrite(unittest.TestCase):
             self.chanel.write(data)
 
 
-class TestCCChanelRead():
-    def test_list_files(self, remote_path_to_list=''):
-        pass
+class TestCCChanelRead(unittest.TestCase):
+    def setUp(self):
+        self.chanel = CCChanelFile()
+
+    # todo parametrize
+    @patch("builtins.open", new_callable=mock_open, read_data=b'data')
+    def test_read_data(self, path='/tmp'):
+        read_data_chanel = self.chanel.read(path)
+        mock_open.assert_called_once_with(path, 'rb')
+        mock_open().read.assert_called_once_with(path)
+        self.assertEqual(read_data_chanel, b'data')
 
 
-class TestCCChanelList():
-    def test_list_files(self, remote_path_to_list=''):
-        pass
+class TestCCChanelList(unittest.TestCase):
+    def setUp(self):
+        self.chanel = CCChanelFile()
+
+    # todo parametrize
+    @patch("os.listdir", return_value=['file1', 'file2'])
+    def test_list_dir(self, mock_listdir, path='/tmp'):
+        chanel_list = self.chanel.list(path)
+        mock_listdir.assert_called_once_with(path)
+        self.assertEqual(chanel_list, ['file1', 'file2'])
+
+
+class TestCCChanelExists(unittest.TestCase):
+    def setUp(self):
+        self.chanel = CCChanelFile()
+
+    # todo parametrize
+    @patch("os.listdir", return_value=['file1', 'file2'])
+    def test_file_exists(self, mock_listdir, the_file='file1', expected_exists=True):
+        file_exists = self.chanel.exists(the_file)
+        self.assertEqual(file_exists, expected_exists)

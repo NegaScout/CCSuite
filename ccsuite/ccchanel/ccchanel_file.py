@@ -1,5 +1,5 @@
 from ccsuite.ccchanel.ccchanel_base import CCChanelBase
-from os import listdir, path
+import os
 
 
 class CCChanelFile(CCChanelBase):
@@ -17,10 +17,10 @@ class CCChanelFile(CCChanelBase):
             return fp.read()
 
     def list(self, identifier: str, *args, **kwargs) -> [str]:
-        return listdir(identifier)
+        return os.listdir(identifier)
 
     def exists(self, identifier: str, *args, **kwargs) -> bool:
-        return path.basename(identifier) in self.list(path.dirname(identifier), *args, **kwargs)
+        return os.path.basename(identifier) in self.list(os.path.dirname(identifier), *args, **kwargs)
 
 
 if __name__ == '__main__':
