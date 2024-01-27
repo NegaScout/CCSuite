@@ -1,7 +1,13 @@
 
-def parse_command():
-    input_line = input('> ')
-    command_parts = input_line.split()
+def parse_command(input_stream):
+    print('> ', end='')
+    input_line = input_stream.readline()
+    match len(input_line):
+        case 1:
+            return None
+        case 0:
+            return exit(0)
+    command_parts = input_line.strip().split()
     prefix = command_parts[0]
     if prefix in ['local', 'remote']:
         return create_repl_command(prefix, command_parts[1:])

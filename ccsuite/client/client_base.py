@@ -16,6 +16,7 @@ class CCClient(object):
         self.id = 'client'
         self.log_root = '/tmp/ccsuite'
         self.own_log = os.path.join(self.log_root, self.id)
+        self.exit_flag = False
 
     def is_registered(self):
         return self.id in self.ccchanel.list(self.log_root)
@@ -55,7 +56,7 @@ class CCClient(object):
         if not self.is_registered():
             self.register()
         self.tell_alive()
-        while True:
+        while not self.exit_flag:
             cmd = self.get_command()
             if cmd is not None:
                 cmd_id = cmd['timestamp']

@@ -1,5 +1,6 @@
 import os.path
 import time
+import sys
 
 from ..ccchanel.ccchanel_base import CCChanelBase
 from ..ccchanel.log import log_append as cclog_append
@@ -9,13 +10,14 @@ from ..server import repl as srepl
 from ..server import util as sutil
 from ..steno.steno_base import CCStenoBase
 
-
 class CCServer(object):
-    def __init__(self, ccchanel: CCChanelBase, steno_: CCStenoBase):
+    def __init__(self, ccchanel: CCChanelBase, steno_: CCStenoBase, input_stream=sys.stdin):
         self.ccchanel = ccchanel
         self.steno_base = steno_
         self.log_root = '/tmp/ccsuite'
         self.download_dir = '/tmp/ccsuite'
+        self.exit_flag = False
+        self.input_stream = input_stream
 
     def log_append(self, client_id, payload):
         return cclog_append(self.ccchanel, path, payload, self.steno_base)
@@ -65,8 +67,8 @@ class CCServer(object):
 
     def run(self):
         print(sutil.help_string())
-        while True:
-            parsed_cmd = srepl.parse_command()
+        while not self.exit_flag:
+            parsed_cmd = srepl.parse_command(self.input_stream)
             if parsed_cmd is not None:
                 if parsed_cmd.get('remote', False):
                     cmd = parsed_cmd['remote']
