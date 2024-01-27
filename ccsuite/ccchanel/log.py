@@ -1,6 +1,6 @@
-from ccchanel.ccchanel_base import CCChanelBase
-from ccchanel.ccchanel_file import CCChanelFile
-from steno.steno_base import CCStenoBase
+from ccsuite.ccchanel.ccchanel_base import CCChanelBase
+from ccsuite.ccchanel.ccchanel_file import CCChanelFile
+from ccsuite.steno.steno_base import CCStenoBase
 
 
 def log_append(ccchanel: CCChanelBase, remote_path, entry, steno_: CCStenoBase):

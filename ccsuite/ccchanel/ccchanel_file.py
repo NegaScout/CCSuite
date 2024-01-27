@@ -1,5 +1,5 @@
-from ccsuite.ccchanel.ccchanel_base import CCChanelBase
 import os
+from ccsuite.ccchanel.ccchanel_base import CCChanelBase
 
 
 class CCChanelFile(CCChanelBase):

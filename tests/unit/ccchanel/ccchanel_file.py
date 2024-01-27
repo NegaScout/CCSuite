@@ -4,7 +4,7 @@ from ccsuite.ccchanel.ccchanel_file import CCChanelFile
 
 
 # todo inherit from common CCChanel class to omit setUp
-class TestCCChanelWrite(unittest.TestCase):
+class TestCCChanel_CCChanelFile_Write(unittest.TestCase):
     def setUp(self):
         self.chanel = CCChanelFile()
 
@@ -20,20 +20,20 @@ class TestCCChanelWrite(unittest.TestCase):
             self.chanel.write(data)
 
 
-class TestCCChanelRead(unittest.TestCase):
+class TestCCChanel_CChanelFile_Read(unittest.TestCase):
     def setUp(self):
         self.chanel = CCChanelFile()
 
     # todo parametrize
     @patch("builtins.open", new_callable=mock_open, read_data=b'data')
-    def test_read_data(self, path='/tmp'):
+    def test_read_data(self, mock_open, path='/tmp'):
         read_data_chanel = self.chanel.read(path)
         mock_open.assert_called_once_with(path, 'rb')
-        mock_open().read.assert_called_once_with(path)
+        mock_open().read.assert_called_once_with()
         self.assertEqual(read_data_chanel, b'data')
 
 
-class TestCCChanelList(unittest.TestCase):
+class TestCCChanel_CChanelFile_List(unittest.TestCase):
     def setUp(self):
         self.chanel = CCChanelFile()
 
@@ -45,7 +45,7 @@ class TestCCChanelList(unittest.TestCase):
         self.assertEqual(chanel_list, ['file1', 'file2'])
 
 
-class TestCCChanelExists(unittest.TestCase):
+class TestCCChanel_CChanelFile_Exists(unittest.TestCase):
     def setUp(self):
         self.chanel = CCChanelFile()
 

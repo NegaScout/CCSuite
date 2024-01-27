@@ -17,5 +17,5 @@ class TestCCStenoDecode(unittest.TestCase):
         self.steno = CCStenoBase()
 
     def test_decode(self, object_to_decode=b'["test_string"]', decoded_object=['test_string']):
-        decoded_object = self.steno.decode(object_to_decode)
-        self.assertEqual(decoded_object, decoded_object)
+        decoded_bytes = self.steno.decode(object_to_decode)
+        self.assertEqual(decoded_bytes, decoded_object)
