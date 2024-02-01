@@ -5,8 +5,6 @@ def get_last_ping(log):
     for log_entry in reversed(log):
         if log_entry.get('ping', False):
             return log_entry['ping']
-        elif log_entry.get('alive', False):
-            return log_entry['alive']
     return None
 
 
