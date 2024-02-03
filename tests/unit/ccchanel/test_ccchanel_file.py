@@ -6,7 +6,6 @@ from unittest.mock import mock_open, patch
 from tests.unit.ccchanel.base_setup_ccchanelfile import TestCaseWith_CCChanelFile
 
 
-# todo inherit from common CCChanel class to omit setUp
 class TestCCChanel_CCChanelFile_Write(TestCaseWith_CCChanelFile):
 
     @parameterized.expand([
