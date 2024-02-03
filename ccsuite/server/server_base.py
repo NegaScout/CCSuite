@@ -2,13 +2,13 @@ import os.path
 import time
 import sys
 
-from ..ccchanel.ccchanel_base import CCChanelBase
-from ..ccchanel.log import log_append as cclog_append
-from ..ccchanel.log import log_read as cclog_read
-from ..server import cmd_utils as scmd
-from ..server import repl_utils as srepl
-from ..server import server_utils as sutil
-from ..steno.steno_base import CCStenoBase
+from ccsuite.ccchanel.ccchanel_base import CCChanelBase
+from ccsuite.ccchanel.ccchanel_log import log_append as cclog_append
+from ccsuite.ccchanel.ccchanel_log import log_read as cclog_read
+from ccsuite.ccchanel import ccchanel_messages as scmd
+from ccsuite.server import repl_utils as srepl
+from ccsuite.server import server_utils as sutil
+from ccsuite.steno.steno_base import CCStenoBase
 
 
 class CCServer(object):
@@ -34,7 +34,7 @@ class CCServer(object):
         return cclog_read(self.ccchanel, path, self.steno_base)
 
     def dispatch_command(self, path, command, *args):
-        payload = scmd.command_create(command, *args)
+        payload = scmd.message_create_command(command, *args)
         self.log_append(path, payload)
 
     def download_file_as(self, remote_name, name):

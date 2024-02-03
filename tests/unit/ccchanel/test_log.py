@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import mock_open, patch
-from ccsuite.ccchanel.log import log_init, log_append, log_read
+from ccsuite.ccchanel.ccchanel_log import log_init, log_append, log_read
 from ccsuite.ccchanel.ccchanel_file import CCChanelFile
 from ccsuite.steno.steno_base import CCStenoBase
 

