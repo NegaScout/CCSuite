@@ -55,10 +55,10 @@ class TestCCChanel_CChanelFile_List(TestCaseWith_CCChanelFile):
 class TestCCChanel_CChanelFile_Exists(TestCaseWith_CCChanelFile):
 
     @parameterized.expand([
-        ('file1', ['file1', 'file2'], True)
+        ('file1', "", ['file1', 'file2'], True)
     ])
     @patch("os.listdir")
-    def test_file_exists(self, the_file, listed_files, expected_file_exists, mock_listdir):
+    def test_file_exists(self, the_file, the_dir, listed_files, expected_file_exists, mock_listdir):
         mock_listdir.configure_mock(return_value=listed_files)
-        file_exists = self.chanel.exists(the_file)
+        file_exists = self.chanel.exists(the_file, the_dir)
         self.assertEqual(file_exists, expected_file_exists)
