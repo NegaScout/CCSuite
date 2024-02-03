@@ -28,13 +28,13 @@ class CCClient(object):
         return self.id in self.ccchanel.list(self.log_root)
 
     def register(self):
-        cclog.log_init(self.ccchanel, self.own_log, self.steno_base)
+        cclog.log_init(self.ccchanel, self.steno_base, self.own_log)
 
     def tell_alive(self):
-        cclog.log_append(self.ccchanel, self.own_log, cpayload.message_create_alive(), self.steno_base)
+        cclog.log_append(self.ccchanel, self.steno_base, cpayload.message_create_alive(), self.own_log)
 
     def get_command(self):
-        log = cclog.log_read(self.ccchanel, self.own_log, self.steno_base)
+        log = cclog.log_read(self.ccchanel, self.steno_base, self.own_log)
         dones = []
         for log_entry in reversed(log):
             if log_entry.get('done', False):
@@ -54,7 +54,7 @@ class CCClient(object):
             return self.executor.exec(local_path, args)
 
     def log_append(self, payload):
-        return cclog.log_append(self.ccchanel, self.own_log, payload, self.steno_base)
+        return cclog.log_append(self.ccchanel, self.steno_base, payload, self.own_log)
 
     def run(self):
         sleep_time = 15

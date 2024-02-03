@@ -20,7 +20,10 @@ class CCChanelFile(CCChanelBase):
         return os.listdir(identifier)
 
     def exists(self, identifier: str, *args, **kwargs) -> bool:
-        return os.path.basename(identifier) in self.list(os.path.dirname(identifier), *args, **kwargs)
+        directory_abs_path = args[0]
+        listed_files = self.list(directory_abs_path, *args, **kwargs)
+        listed_files = list(map(os.path.basename, listed_files))
+        return identifier in listed_files
 
 
 if __name__ == '__main__':
