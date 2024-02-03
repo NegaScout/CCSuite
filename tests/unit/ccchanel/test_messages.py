@@ -10,5 +10,5 @@ class TestCCChanel_Messeges(unittest.TestCase):
                             command_kind='exec',
                             command_args=('test',),
                             obj_wanted={'command': {'args': ['test'], 'id': 12345, 'kind': 'exec', 'timestamp': 12345}}):
-        created_command_object = message_create_command(None, command_kind, *command_args)
+        created_command_object = message_create_command(12345, command_kind, *command_args)
         self.assertDictEqual(obj_wanted, created_command_object)
