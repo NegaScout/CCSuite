@@ -34,7 +34,7 @@ class CCServer(object):
         return cclog_read(self.ccchanel, path, self.steno_base)
 
     def dispatch_command(self, path, command, *args):
-        payload = scmd.message_create_command(command, *args)
+        payload = scmd.message_create_command(path + str(time.time()), command, *args)
         self.log_append(path, payload)
 
     def download_file_as(self, remote_name, name):
@@ -86,5 +86,3 @@ class CCServer(object):
                     self.exit_flag = True
                 case 'fail':
                     print(sutil.help_string())
-            time.sleep(
-                1)  # Limit 1 cmd per second, so I dont have to deal with ids xD (timestamp is also id, cuz its easy)
