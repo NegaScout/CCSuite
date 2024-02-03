@@ -21,12 +21,17 @@ ccserver = "ccsuite.ccsuite_server:main"
 
 [tool.coverage.run]
 branch = true
-omit = ["ccchanel/ccchanel/ccchanel_base.py",
-        "ccchanel/client/exec_base.py",
-        "ccchanel/client/id_base.py",
-        "ccchanel/ccsuite_client.py",
-        "ccchanel/ccsuite_server.py"]
+omit = ["ccsuite/ccchanel/ccchanel_base.py",
+        "ccsuite/client/exec_base.py",
+        "ccsuite/client/id_base.py",
+        "ccsuite/ccsuite_client.py",
+        "ccsuite/ccsuite_server.py"]
 [tool.coverage.report]
+omit = ["ccsuite/ccchanel/ccchanel_base.py",
+        "ccsuite/client/exec_base.py",
+        "ccsuite/client/id_base.py",
+        "ccsuite/ccsuite_client.py",
+        "ccsuite/ccsuite_server.py"]
 exclude_also = [
     # Don't complain about missing debug-only code:
     # Don't complain if tests don't hit defensive assertion code:
