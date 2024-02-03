@@ -18,3 +18,27 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 ccclient = "ccsuite.ccsuite_client:main"
 ccserver = "ccsuite.ccsuite_server:main"
+
+[tool.coverage.run]
+branch = true
+omit = ["ccchanel/ccchanel/ccchanel_base.py",
+        "ccchanel/client/exec_base.py",
+        "ccchanel/client/id_base.py",
+        "ccchanel/ccsuite_client.py",
+        "ccchanel/ccsuite_server.py"]
+[tool.coverage.report]
+exclude_also = [
+    # Don't complain about missing debug-only code:
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+    # Don't complain if non-runnable code isn't run:
+    "if __name__ == .__main__.:",
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc\\.)?abstractmethod",
+    ]
+
+ignore_errors = true
+
+[tool.coverage.html]
+directory = "coverage_html_report"
