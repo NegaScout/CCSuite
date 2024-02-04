@@ -7,7 +7,7 @@ class CCChanelFile(CCChanelBase):
         if len(args) == 0:
             raise TypeError("number of *args has to be at least one")
 
-        f_path, = args
+        f_path = args[0]
         with open(f_path, "wb") as fp:
             fp.write(data)
         return
@@ -20,10 +20,7 @@ class CCChanelFile(CCChanelBase):
         return os.listdir(identifier)
 
     def exists(self, identifier: str, *args, **kwargs) -> bool:
-        directory_abs_path = args[0]
-        listed_files = self.list(directory_abs_path, *args, **kwargs)
-        listed_files = list(map(os.path.basename, listed_files))
-        return identifier in listed_files
+        return os.path.exists(identifier)
 
 
 if __name__ == '__main__':
